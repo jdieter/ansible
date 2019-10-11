@@ -1,0 +1,34 @@
+diff -urb a/js/ui/sessionMode.js b/js/ui/sessionMode.js
+--- a/js/ui/sessionMode.js	2019-10-11 22:09:17.955771042 +0300
++++ b/js/ui/sessionMode.js	2019-10-11 22:10:38.097288230 +0300
+@@ -42,12 +42,13 @@
+         hasNotifications: true,
+         isGreeter: true,
+         isPrimary: true,
++        allowExtensions: true,
+         unlockDialog: imports.gdm.loginDialog.LoginDialog,
+         components: ['polkitAgent'],
+         panel: {
+             left: [],
+             center: ['dateMenu'],
+-            right: ['a11y', 'keyboard', 'aggregateMenu']
++            right: ['keyboard', 'aggregateMenu']
+         },
+         panelStyle: 'login-screen'
+     },
+@@ -56,6 +57,7 @@
+         isLocked: true,
+         isGreeter: undefined,
+         unlockDialog: undefined,
++        allowExtensions: true,
+         components: ['polkitAgent', 'telepathyClient'],
+         panel: {
+             left: [],
+@@ -68,6 +70,7 @@
+     'unlock-dialog': {
+         isLocked: true,
+         unlockDialog: undefined,
++        allowExtensions: true,
+         components: ['polkitAgent', 'telepathyClient'],
+         panel: {
+             left: [],

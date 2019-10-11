@@ -43,7 +43,18 @@
 
 - name: copy GDM and Gnome Shell patches
   copy: src=display-manager/gdm28/{{item}} dest=/srv
-  when: ansible_distribution == "Fedora" and ansible_distribution_major_version|int >= 28
+  when: ansible_distribution == "Fedora" and ansible_distribution_major_version|int >= 28 and ansible_distribution_major_version|int < 30
+  with_items:
+   - gnome-shell-gdm-extensions.patch
+   - clear-background-object.patch
+  tags:
+   - install
+   - atomic
+   - display-manager
+
+- name: copy GDM and Gnome Shell patches
+  copy: src=display-manager/gdm30/{{item}} dest=/srv
+  when: ansible_distribution == "Fedora" and ansible_distribution_major_version|int >= 30
   with_items:
    - gnome-shell-gdm-extensions.patch
    - clear-background-object.patch
