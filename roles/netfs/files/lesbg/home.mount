@@ -8,7 +8,7 @@ Before=systemd-user-sessions.service
 What=/netshare/users
 Where=/home
 Type=None
-Options=bind
+Options=bind,_netdev
 
 [Install]
 WantedBy=multi-user.target
