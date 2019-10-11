@@ -30,7 +30,7 @@
    - atomic
    - display-manager
 
-- name: copy GDM and Gnome Shell patches
+- name: copy GDM and Gnome Shell patches for < F28
   copy: src=display-manager/gdm/{{item}} dest=/srv
   when: ansible_distribution != "Fedora" or ansible_distribution_major_version|int < 28
   with_items:
@@ -41,7 +41,7 @@
    - atomic
    - display-manager
 
-- name: copy GDM and Gnome Shell patches
+- name: copy GDM and Gnome Shell patches for F28 and F29
   copy: src=display-manager/gdm28/{{item}} dest=/srv
   when: ansible_distribution == "Fedora" and ansible_distribution_major_version|int >= 28 and ansible_distribution_major_version|int < 30
   with_items:
@@ -52,7 +52,7 @@
    - atomic
    - display-manager
 
-- name: copy GDM and Gnome Shell patches
+- name: copy GDM and Gnome Shell patches for F30+
   copy: src=display-manager/gdm30/{{item}} dest=/srv
   when: ansible_distribution == "Fedora" and ansible_distribution_major_version|int >= 30
   with_items:
@@ -70,8 +70,17 @@
    - atomic
    - display-manager
 
-- name: install Gnome Shell resource extractor
+- name: install Gnome Shell resource extractor for < F30
   copy: src=display-manager/gdm/extract-gnome-shell-resources dest=/usr/bin mode=0755
+  when: ansible_distribution == "Fedora" and ansible_distribution_major_version|int < 30
+  tags:
+   - install
+   - atomic
+   - display-manager
+
+- name: install Gnome Shell resource extractor for F30+
+  copy: src=display-manager/gdm30/extract-gnome-shell-resources dest=/usr/bin mode=0755
+  when: ansible_distribution == "Fedora" and ansible_distribution_major_version|int >= 30
   tags:
    - install
    - atomic
