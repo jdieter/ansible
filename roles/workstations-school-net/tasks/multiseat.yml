@@ -46,7 +46,21 @@
 
 - name: be sure multiseat service is running
   systemd: name=prepare-multiseat state=started
-  ignore_errors: yes 
+  ignore_errors: yes
+  tags:
+   - install
+   - atomic
+   - multiseat
+
+- name: Disable iscsi crap because it messes with boot dependencies in F30+
+  systemd:
+    name: '{{ item }}'
+    state: stopped
+    enabled: false
+  with_items:
+   - iscsi.socket
+   - iscsi.service
+   - iscsiuio.socket
   tags:
    - install
    - atomic
